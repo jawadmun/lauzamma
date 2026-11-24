@@ -215,20 +215,105 @@ h1{font-size:25px;font-weight:800;letter-spacing:-.035em}.ind{font-family:var(--
 #thpop .ns b{flex:1 0 100%;font-weight:700}
 #thpop .ns label{display:flex;align-items:center;gap:6px;color:var(--mut)}
 #thpop .ns input{font:inherit;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:6px 8px}
+
+/* compact course grid: two cards side by side (three on wide screens) */
+#list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch}
+@media(min-width:1100px){#list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#list .more,#list .empty{grid-column:1/-1}
+#list .more{margin:2px 0 12px;padding:12px}
+#list .c{margin:0;padding:9px 8px 8px 12px;border-radius:14px;display:flex;flex-direction:column;min-width:0;animation:none}
+#list .c::before{width:4px}
+#list .c .h{flex-wrap:wrap;gap:4px 6px;align-items:center}
+#list .c .h b{font-size:12px;padding:2px 7px;border-radius:8px}
+#list .c .st{font-size:10px;padding:3px 7px;white-space:normal;line-height:1.2}
+#list .c h3{font-size:12.5px;line-height:1.28;margin:5px 0 5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#list .c.ex h3{-webkit-line-clamp:unset;display:block}
+#list .c .mt{height:4px;margin:0 0 6px}
+#list .c dl{display:flex;flex-direction:column;gap:4px;margin:0 0 5px}
+#list .c dt{font-size:8px;letter-spacing:.05em}
+#list .c .rq dt{text-transform:none;letter-spacing:0;font-size:9.5px}
+#list .c dd{font-size:11px;line-height:1.28;overflow-wrap:anywhere}
+#list .c dl>div.lo{display:none}
+#list .c.ex dl>div.lo{display:block}
+#list .c .rq dd{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#list .c.ex .rq dd{display:block}
+#list .c .mr{align-self:flex-start;font-size:10.5px;font-weight:600;color:var(--acc);margin:0 0 5px;cursor:pointer}
+#list .c .at,#list .c .w{font-size:10.5px;padding:6px 7px;margin:0 0 7px;border-radius:8px}
+#list .c button.a{margin-top:auto;padding:7px 6px;font-size:11.5px;border-radius:11px}
+
+/* two-pane layout: schedule on the left (always visible), course search on the right */
+body{display:flex;flex-direction:column;height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow:hidden}
+header{position:relative;top:0!important;z-index:20;flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:6px 10px 8px!important}
+header .top{flex:1 1 100%}header .sub,header .tabs{display:none}
+header #trm{flex:1 1 30%;min-width:0;margin:0}header .sr{flex:1 1 60%;min-width:0;margin:0;gap:6px}
+main{flex:1;min-height:0;display:grid!important;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr)!important;gap:8px;max-width:none!important;margin:0!important;padding:8px!important;align-items:stretch!important}
+@media(min-width:900px){main{grid-template-columns:minmax(380px,.85fr) minmax(0,1.15fr)!important}}
+body[data-tab] #pc,body[data-tab] #ps{min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+body[data-tab] #pc{display:block!important;container:pc/inline-size}
+body[data-tab] #ps{display:flex!important;flex-direction:column;gap:8px;order:-1}
+#ps>:nth-child(4){order:-3}#ps>:nth-child(3){order:-2}#ps>:nth-child(5){order:-1}#ps>:nth-child(2){order:2}#ps>:nth-child(6){order:3}
+#ps .p{margin:0}
+#tt{padding:6px 4px!important;container:tt/inline-size;display:flex;flex-direction:column}
+#tt .studio,#tt .hero .sg{display:none}
+#tt .hero{padding:8px 10px!important;border-radius:14px!important;margin-bottom:6px!important;gap:6px}#tt .hero h2{font-size:14px!important}#tt .ring{zoom:.7}
+#tt .seg:not(.o){order:-1;margin:0 0 4px}#tt .dh{order:1}#tt .tb{order:2}#tt .hero{order:3;margin-top:8px}#tt .tba{order:4}#tt .chips{order:5}#tt .lg{order:6}
+#tt .dh,#tt .tb{grid-template-columns:20px repeat(var(--n),1fr);margin-left:0;margin-right:0}
+#tt .dh span{font-size:9px;padding:3px 0}#tt .hh i{font-size:8.5px}
+#tt .col{background-image:repeating-linear-gradient(var(--line) 0 1px,transparent 1px var(--hh,92px))}
+#tt .blk{padding:2px 1px 1px 3px!important;gap:0!important;border-radius:6px!important}#tt .blk::before{display:none}
+#tt .blk b{font-size:clamp(7px,calc((100cqw - 30px)/var(--n)*.2),13px)!important;letter-spacing:-.02em}
+#tt .blk em{font-size:clamp(5.5px,calc((100cqw - 30px)/var(--n)*.15),10.5px)!important;letter-spacing:-.03em}
+#tt .blk .in,#tt .blk .lc{display:none}
+@container tt (min-width:380px){#tt .blk .in,#tt .blk .lc{display:block}}
+@container pc (max-width:340px){.fl{grid-template-columns:1fr}}
+#list{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))!important}
+#list .c{padding:10px 9px 9px 13px!important}#list .c h3{font-size:13px}#list .c dd{font-size:11.5px}#list .c dt{font-size:8.5px}#list .c .h b{font-size:13px}#list .c .st{font-size:10.5px}#list .c button.a{font-size:12px;padding:8px 6px}#list .c .mr{font-size:11px}
+#q{margin-bottom:8px}.fd{margin-bottom:10px}.fd summary{cursor:pointer;font-weight:600;color:var(--acc);padding:6px 2px;list-style:none}.fd summary::-webkit-details-marker{display:none}.fd[open] summary{margin-bottom:6px}
+header .top{gap:8px}header .logo{width:32px;height:32px;border-radius:10px}header .logo svg{width:19px;height:19px}header h1{font-size:19px}
+header #thbtn,header #mode{width:34px!important;height:34px!important}
+header select{font-size:14px!important;padding:7px 28px 7px 10px!important;height:38px;min-height:0;border-radius:12px!important}
+header #ns{font-size:0!important;width:38px;height:38px;padding:0!important;border-radius:12px!important}header #ns::after{content:"+";font-size:22px;font-weight:600;line-height:1}
+#tt .seg:not(.o){padding:3px!important}#tt .seg:not(.o) button{padding:5px 4px!important;font-size:11px!important}
+/* smaller course cards */
+#list{gap:6px!important;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))!important}
+#list .c{padding:7px 7px 7px 11px!important;border-radius:11px!important}
+#list .c .h b{font-size:11.5px!important;padding:1px 6px!important}
+#list .c .st{font-size:9.5px!important;padding:2px 6px!important}
+#list .c h3{font-size:12px!important;margin:4px 0!important;-webkit-line-clamp:1}
+#list .c.ex h3{-webkit-line-clamp:unset}
+#list .c .mt{height:3px!important;margin:0 0 4px!important}
+#list .c dl{gap:2px!important;margin:0 0 3px!important}
+#list .c dd{font-size:11px!important;line-height:1.25!important}
+#list .c dl>div:nth-child(-n+2) dt,#list .c dl>div:nth-child(4) dt{display:none}
+#list .c.ex dl>div:nth-child(-n+2) dt,#list .c.ex dl>div:nth-child(4) dt{display:block}
+#list .c:not(.ex) dl>div:nth-child(3),#list .c:not(.ex) dl>.rq{display:none}
+#list .c .mr{font-size:10px!important;margin:0 0 4px!important}
+#list .c .at,#list .c .w{font-size:9.5px!important;padding:4px 6px!important;margin:0 0 5px!important}
+#list .c button.a{padding:5px 6px!important;font-size:11px!important;border-radius:9px!important}
+/* desktop canvas: laid out at desktop width, scaled down on narrow screens like a desktop site */
+html{height:100dvh;overflow:hidden;background:var(--card)}
+body{width:calc(100%/var(--z,1))!important;height:calc(100%/var(--z,1))!important;transform:scale(var(--z,1));transform-origin:0 0}
+body::before{display:none!important}
+header #ns{font-size:14px!important;width:auto!important;height:38px;padding:0 14px!important}header #ns::after{content:none!important}
+main{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+@media(min-width:900px){main{grid-template-columns:minmax(400px,.8fr) minmax(0,1.2fr)!important}}
+#list{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))!important}
 </style>
+<script>(function(){var R=document.documentElement,f=function(){window.ZF=Math.min(1,innerWidth/900);R.style.setProperty("--z",window.ZF)},t;f();addEventListener("resize",function(){clearTimeout(t);t=setTimeout(function(){f();if(window.__relayout)try{window.__relayout()}catch(e){}},150)})})();</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0b4493bdf1f94c379696231d6dfd1ee8"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body data-tab="c">
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0b4493bdf1f94c379696231d6dfd1ee8"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Cloudflare Web Analytics --><!-- End Cloudflare Web Analytics -->
 <header>
 <div class="top"><div class="brand"><span class="logo"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v6"/></svg></span><div><h1><span class="g">Zamma</span></h1>
 <p class="sub"><b class="ind">jjjawadm</b></p></div></div><div class="tools"><div class="thx" id="hth"></div><button id="mode" aria-label="Light, dark, automatic, night-schedule or theme-color mode"></button></div></div><select id="trm" aria-label="Semester"></select>
-<div class="sr"><select id="sch" aria-label="Schedule"></select><button id="ns">+ New schedule</button></div>
+<div class="sr"><select id="sch" aria-label="Schedule"></select><button id="ns" aria-label="New schedule" title="New schedule">+ New schedule</button></div>
 <nav class="tabs"><button data-t="c">Look up classes</button><button data-t="s">Current schedule <b id="n">0 cr</b></button></nav>
 </header>
 <main>
 <section id="pc">
-<div class="fl">
 <input id="q" type="search" placeholder="Search course, title, building or CRN">
+<details class="fd" id="fd"><summary>More filters</summary><div class="fl">
 <div class="insbox"><input id="ins" type="search" autocomplete="off" placeholder="Instructors: tap to pick one or more"><datalist id="insl"></datalist><div class="inc" id="inc"></div><div class="inl" id="inl" hidden></div></div>
 <label class="lb">Starts at or after<input id="t1" type="time"></label><label class="lb">Ends at or before<input id="t2" type="time"></label>
 <label class="chk"><input id="nc" type="checkbox"> Only times with no conflict with my classes</label>
@@ -237,7 +322,7 @@ h1{font-size:25px;font-weight:800;letter-spacing:-.035em}.ind{font-family:var(--
 <select id="cam"></select>
 <label class="chk"><input id="open" type="checkbox"> Show sections with open seats only</label>
 <label class="chk"><input id="wlo" type="checkbox"> Show sections with a waiting list only</label>
-</div>
+</div></details>
 <div id="note"></div><p class="sub" id="cnt"></p><div id="list"></div>
 </section>
 <aside id="ps">
@@ -325,26 +410,26 @@ const DF=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],hm=n=>S
 function tt(s){CI.clear();s.forEach((x,i)=>CI.set(x.crn,i));
 const cr=s.reduce((n,x)=>n+x.cr,0),T=XP(s).filter(x=>x.s&&x.days),D="MTWRFS",on=[...D].filter(d=>T.some(x=>x.days.includes(d))),ds=[...D].filter((d,i)=>i<5||on.includes(d)),tp=s.filter(x=>!(x.s&&x.days));
 let lo=8,hi=17;T.forEach(x=>{lo=Math.min(lo,Math.floor(m(x.s)/60));hi=Math.max(hi,Math.ceil(m(x.e)/60))});
-const HH=92,now=new Date(),td=D[now.getDay()-1]||"",nm=now.getHours()*60+now.getMinutes(),hr=(hi-lo)*HH;
+const PNH=($("#ps")||{}).clientHeight||innerHeight/(window.ZF||1)-210,HH=Math.max(26,Math.min(110,Math.floor((PNH-86)/Math.max(8,hi-lo)))),now=new Date(),td=D[now.getDay()-1]||"",nm=now.getHours()*60+now.getMinutes(),hr=(hi-lo)*HH;
 let body='<p class="empty">Add classes and your week will appear here.</p>';
 if(T.length){
 const bz=BZ(T),mins=T.reduce((n,x)=>n+(m(x.e)-m(x.s))*x.days.length,0),f=Math.min(...T.map(x=>m(x.s))),l=Math.max(...T.map(x=>m(x.e))),fr=[..."MTWRF"].filter(d=>!on.includes(d)).map(d=>DN[D.indexOf(d)]);
 const chips=`<div class="chips"><span><b>${on.length}</b> day${on.length===1?"":"s"} on campus</span><span><b>${+(mins/60).toFixed(1)}</b> class hours a week</span><span>First class <b>${hm(f)}</b></span><span>Done by <b>${hm(l)}</b></span>${bz[1]>1?`<span>Busiest <b>${DN[D.indexOf(bz[0])]}</b> · ${bz[1]} classes</span>`:""}${fr.length?`<span>Free: <b>${fr.join(", ")}</b></span>`:""}</div>`;
 const seg=`<div class="seg"><button data-v="w" class="${vw==="w"?"on":""}">Week</button><button data-v="d" class="${vw==="d"?"on":""}">Day by day</button></div>`;
-const week=`<div class="dh" style="--n:${ds.length}"><span></span>${ds.map(d=>`<span class="${d===td?"td":""}">${DN[D.indexOf(d)]}</span>`).join("")}</div><div class="tb" style="--n:${ds.length}"><div class="hh" style="height:${hr}px">${Array.from({length:hi-lo+1},(_,i)=>`<i style="top:${i*HH}px">${lo+i}</i>`).join("")}</div>${ds.map(d=>`<div class="col${d===td?" td":""}" style="height:${hr}px">${T.filter(x=>x.days.includes(d)).map(x=>`<div class="blk" title="${esc(x.code+" · "+x.title+" · "+x.s+"–"+x.e)}" style="top:${(m(x.s)-lo*60)/60*HH}px;height:${(m(x.e)-m(x.s))/60*HH-2}px;${cc(x)}"><b>${x.code}</b><em>${x.s.replace(/^0/,"")}–${x.e.replace(/^0/,"")}</em><span class="in">${esc(IN(x))}</span><span class="lc">${esc(LC(x).short)}</span></div>`).join("")}${GP(T,d).map(([a,b])=>`<div class="gap" style="top:${(a-lo*60)/60*HH+1}px;height:${(b-a)/60*HH-2}px">Free ${gf(b-a)}</div>`).join("")}${d===td&&nm>lo*60&&nm<hi*60?`<i class="nw" style="top:${(nm-lo*60)/60*HH}px"></i>`:""}</div>`).join("")}</div>`;
+const week=`<div class="dh" style="--n:${ds.length}"><span></span>${ds.map(d=>`<span class="${d===td?"td":""}">${DN[D.indexOf(d)]}</span>`).join("")}</div><div class="tb" style="--n:${ds.length};--hh:${HH}px"><div class="hh" style="height:${hr}px">${Array.from({length:hi-lo+1},(_,i)=>`<i style="top:${i*HH}px">${lo+i}</i>`).join("")}</div>${ds.map(d=>`<div class="col${d===td?" td":""}" style="height:${hr}px">${T.filter(x=>x.days.includes(d)).map(x=>`<div class="blk" title="${esc(x.code+" · "+x.title+" · "+x.s+"–"+x.e)}" style="top:${(m(x.s)-lo*60)/60*HH}px;height:${(m(x.e)-m(x.s))/60*HH-2}px;${cc(x)}"><b>${x.code}</b><em>${x.s.replace(/^0/,"")}–${x.e.replace(/^0/,"")}</em><span class="in">${esc(IN(x))}</span><span class="lc">${esc(LC(x).short)}</span></div>`).join("")}${GP(T,d).map(([a,b])=>`<div class="gap" style="top:${(a-lo*60)/60*HH+1}px;height:${(b-a)/60*HH-2}px">Free ${gf(b-a)}</div>`).join("")}${d===td&&nm>lo*60&&nm<hi*60?`<i class="nw" style="top:${(nm-lo*60)/60*HH}px"></i>`:""}</div>`).join("")}</div>`;
 const days=on.map(d=>{const L=T.filter(x=>x.days.includes(d)).sort((a,b)=>m(a.s)-m(b.s));return`<div class="dy"><h4>${DF[D.indexOf(d)]}<small>${L.length} class${L.length>1?"es":""} · ${L[0].s}–${hm(Math.max(...L.map(x=>m(x.e))))}</small></h4>${L.map((x,i)=>{const g=i?m(x.s)-m(L[i-1].e):0;return(g>=20?`<div class="gp">Free for ${hf(Math.round(g/5)*5)}</div>`:"")+`<div class="it" style="${cc(x)}"><div class="tm"><b>${x.s}</b><span>${x.e}</span></div><div class="bd"><b>${x.code}</b> ${esc(x.title)}<div><span class="lc2">${PIN}${esc(x.cam+" · "+LC(x).full)}</span></div><small>${esc(x.ins||"Instructor to be announced")} · CRN ${x.crn}</small></div></div>`}).join("")}</div>`}).join("");
 const lg=`<div class="lg">${s.map(x=>`<span style="${cc(x)}"><i></i>${x.code}<small>${x.s?x.days+" "+x.s+"–"+x.e:"Time TBA"} · ${esc(IN(x))}</small></span>`).join("")}</div>`;
 const studio=`<div class="studio"><div class="seg o"><button data-o="p" class="${ORI==="p"?"on":""}">Portrait<small>phone</small></button><button data-o="l" class="${ORI==="l"?"on":""}">Landscape<small>iPad</small></button></div></div>`,
 SP=(hi-lo)*60,tl=`<div class="tl"><div class="tlin" style="--span:${hi-lo}"><div class="tlh">${Array.from({length:hi-lo},(_,i)=>`<i>${lo+i}:00</i>`).join("")}</div>${ds.map(d=>{const L2=T.filter(x=>x.days.includes(d));return`<div class="tlr${d===td?" td":""}"><div class="tld"><b>${DN[D.indexOf(d)]}</b><small>${L2.length?L2.length+" class"+(L2.length>1?"es":""):"free"}</small></div><div class="tlt">${L2.map(x=>`<div class="blk" title="${esc(x.code+" · "+x.title+" · "+x.s+"–"+x.e+" · "+(x.ins||""))}" style="left:${(m(x.s)-lo*60)/SP*100}%;width:${(m(x.e)-m(x.s))/SP*100}%;${cc(x)}"><b>${x.code}</b><em>${x.s.replace(/^0/,"")}–${x.e.replace(/^0/,"")}</em><span class="in">${esc(IN(x))}</span><span class="lc">${esc(LC(x).short)}</span></div>`).join("")}${GP(T,d).map(([a,b])=>`<div class="gap" style="left:${(a-lo*60)/SP*100}%;width:${(b-a)/SP*100}%">Free ${gf(b-a)}</div>`).join("")}${d===td&&nm>lo*60&&nm<hi*60?`<i class="nwv" style="left:${(nm-lo*60)/SP*100}%"></i>`:""}</div></div>`}).join("")}</div></div>`;
-body=chips+seg+studio+(vw==="w"?(ORI==="l"?tl:week)+lg:days)}
-$("#tt").innerHTML=`<div class="hero"><div><small>${esc(TN[cur])}</small><h2>${esc(act().n)}</h2><span class="sg">jjjawadm</span></div><div class="ring" style="--p:${Math.min(100,cr/MAX*100).toFixed(1)}"><b>${cr}</b><span>of ${MAX} cr</span></div></div>`+body+(tp.length?`<p class="tba">Time to be announced: ${tp.map(x=>x.code).join(", ")}</p>`:"");const T_=$("#tt");THEMES[TH].h.forEach((c,i)=>T_.style.setProperty("--h"+(i+1),c));document.querySelectorAll("[data-o]").forEach(b=>b.classList.toggle("on",b.dataset.o===ORI));document.body.classList.toggle("land",ORI==="l"&&vw==="w")}
+body=chips+seg+studio+(vw==="w"?week+lg:days)}
+$("#tt").innerHTML=`<div class="hero"><div><small>${esc(TN[cur])}</small><h2>${esc(act().n)}</h2><span class="sg">jjjawadm</span></div><div class="ring" style="--p:${Math.min(100,cr/MAX*100).toFixed(1)}"><b>${cr}</b><span>of ${MAX} cr</span></div></div>`+body+(tp.length?`<p class="tba">Time to be announced: ${tp.map(x=>x.code).join(", ")}</p>`:"");const T_=$("#tt");THEMES[TH].h.forEach((c,i)=>T_.style.setProperty("--h"+(i+1),c));document.querySelectorAll("[data-o]").forEach(b=>b.classList.toggle("on",b.dataset.o===ORI));document.body.classList.toggle("land",false)}
 function draw(fast){const F=fast===1;if(!F){applyTheme();insUI();
 const q=$("#q").value.toLowerCase(),d=$("#dep").value,cm=$("#cam").value,op=$("#open").checked,wf=$("#wlo").checked,iw=INS.size?[]:$("#ins").value.toLowerCase().split(/[\s,]+/).filter(Boolean),t1=$("#t1").value,t2=$("#t2").value,dy=$("#day").value,nc=$("#nc").checked,sl=nc?S():[];
 const r=C.filter(c=>(!d||c.dep===d)&&(!cm||c.cam===cm)&&(!op||!c.cap||c.enr<c.cap)&&(!wf||c.wc>0)&&(!iw.length||iw.every(w=>c.ins.toLowerCase().includes(w)))&&(!INS.size||inames(c).some(n=>INS.has(n)))&&(!dy||pcs(c).some(p=>p.days.includes(dy)))&&(!t1||c.s&&m(c.s)>=m(t1))&&(!t2||c.s&&m(c.e)<=m(t2))&&(!nc||!sl.some(x=>x.crn!==c.crn&&ov(x,c)))&&(c.code+" "+c.title+" "+c.ins+" "+c.crn+" "+LC(c).n+" "+LC(c).k).toLowerCase().includes(q));
 $("#note").innerHTML=C.length?"":`<div class="nt"><b>No courses for ${TN[cur]} yet.</b><br>Choose another semester to browse available classes.</div>`;
 $("#cnt").textContent=C.length?"Showing "+Math.min(r.length,LIM)+" of "+r.length+" matching sections ("+C.length+" in total). Updated "+ALL[cur].up+".":"";
 $("#list").innerHTML=r.slice(0,LIM).map(c=>{const on=sel.includes(c.crn),w=on?"":why(c),l=c.cap?Math.max(0,c.cap-c.enr):99;
-return`<article class="c${on?" on":""}${l?"":" f"}" style="--dh:${hue({code:c.dep})}"><div class="h"><b>${c.code}</b><span class="st">${on?"In your schedule":!c.cap?"Seats not listed":l?l+" seats left":wo(c)?"Full · waiting list open":"Full"}</span></div><h3>${c.title}</h3>${c.cap?`<div class="mt${!l?" fu":l<=Math.ceil(c.cap*.15)?" lo":""}"><i style="width:${Math.min(100,c.enr/c.cap*100).toFixed(0)}%"></i></div>`:""}<dl><div><dt>Days and time</dt><dd>${c.s?c.days+" "+c.s+"–"+c.e:"Time to be announced"}${(c.ex||[]).map(q=>"<br>"+q.days+" "+q.s+"–"+q.e).join("")}</dd></div><div><dt>Instructor</dt><dd>${c.ins||"To be announced"}</dd></div><div><dt>Location</dt><dd>${c.cam} · ${LC(c).full}${LOCS(c).slice(1).map(o=>"<br>"+esc(o.d)+" · "+esc(o.l.full)).join("")}</dd></div><div><dt>CRN and credits</dt><dd>${c.crn} (${c.cr} cr)</dd></div><div><dt>Enrolled</dt><dd>${c.cap?c.enr+" of "+c.cap:"Not listed"}</dd></div>${c.wc>0||!l?`<div><dt>Waiting list</dt><dd>${wt(c)}</dd></div>`:""}${c.sec?`<div><dt>Section</dt><dd>${c.sec}</dd></div>`:""}${c.type?`<div><dt>Type</dt><dd>${c.type}</dd></div>`:""}${c.prereq&&c.prereq===c.coreq?`<div class="rq"><dt>Prerequisites and co-requisites</dt><dd>${esc(c.prereq)}</dd></div>`:(c.prereq?`<div class="rq"><dt>Prerequisites</dt><dd>${esc(c.prereq)}</dd></div>`:"")+(c.coreq?`<div class="rq"><dt>Co-requisites</dt><dd>${esc(c.coreq)}</dd></div>`:"")}${c.rn?`<div class="rq"><dt>Catalog note</dt><dd>${esc(c.rn)}</dd></div>`:""}${c.note?`<div><dt>Notes</dt><dd>${c.note}</dd></div>`:""}</dl>${!l&&!on?`<p class="at"><b>Attention:</b> this section is full. ${wo(c)?"A waiting list is open ("+(c.wc-c.wa)+" left).":"It has no open waiting list."}</p>`:""}${w?`<p class="w">${w}</p>`:""}<button class="a${on?" rm":""}" data-a="${c.crn}"${w?" disabled":""}>${on?"Remove from schedule":!l?(wo(c)?"Add anyway (waiting list)":"Add anyway (section full)"):"Add to schedule"}</button></article>`}).join("")+(r.length>LIM?'<button class="more" id="more">Show '+Math.min(60,r.length-LIM)+' more ('+(r.length-LIM)+' left)</button>':"")||(C.length?'<p class="empty">No sections match. Clear a filter or try another search.</p>':"");
+return`<article class="c${on?" on":""}${l?"":" f"}" style="--dh:${hue({code:c.dep})}"><div class="h"><b>${c.code}</b><span class="st">${on?"In your schedule":!c.cap?"Seats not listed":l?l+" seats left":wo(c)?"Full · waiting list open":"Full"}</span></div><h3>${c.title}</h3>${c.cap?`<div class="mt${!l?" fu":l<=Math.ceil(c.cap*.15)?" lo":""}"><i style="width:${Math.min(100,c.enr/c.cap*100).toFixed(0)}%"></i></div>`:""}<dl><div><dt>Days and time</dt><dd>${c.s?c.days+" "+c.s+"–"+c.e:"Time to be announced"}${(c.ex||[]).map(q=>"<br>"+q.days+" "+q.s+"–"+q.e).join("")}</dd></div><div><dt>Instructor</dt><dd>${c.ins||"To be announced"}</dd></div><div><dt>Location</dt><dd>${c.cam} · ${LC(c).full}${LOCS(c).slice(1).map(o=>"<br>"+esc(o.d)+" · "+esc(o.l.full)).join("")}</dd></div><div><dt>CRN and credits</dt><dd>${c.crn} (${c.cr} cr)</dd></div><div class="lo"><dt>Enrolled</dt><dd>${c.cap?c.enr+" of "+c.cap:"Not listed"}</dd></div>${c.wc>0||!l?`<div class="lo"><dt>Waiting list</dt><dd>${wt(c)}</dd></div>`:""}${c.sec?`<div class="lo"><dt>Section</dt><dd>${c.sec}</dd></div>`:""}${c.type?`<div class="lo"><dt>Type</dt><dd>${c.type}</dd></div>`:""}${c.prereq&&c.prereq===c.coreq?`<div class="rq"><dt>Prerequisites and co-requisites</dt><dd>${esc(c.prereq)}</dd></div>`:(c.prereq?`<div class="rq"><dt>Prerequisites</dt><dd>${esc(c.prereq)}</dd></div>`:"")+(c.coreq?`<div class="rq"><dt>Co-requisites</dt><dd>${esc(c.coreq)}</dd></div>`:"")}${c.rn?`<div class="rq lo"><dt>Catalog note</dt><dd>${esc(c.rn)}</dd></div>`:""}${c.note?`<div class="lo"><dt>Notes</dt><dd>${c.note}</dd></div>`:""}</dl><span class="mr" role="button" tabindex="0">More details</span>${!l&&!on?`<p class="at"><b>Attention:</b> this section is full. ${wo(c)?"A waiting list is open ("+(c.wc-c.wa)+" left).":"It has no open waiting list."}</p>`:""}${w?`<p class="w">${w}</p>`:""}<button class="a${on?" rm":""}" data-a="${c.crn}"${w?" disabled":""}>${on?"Remove from schedule":!l?(wo(c)?"Add anyway (waiting list)":"Add anyway (section full)"):"Add to schedule"}</button></article>`}).join("")+(r.length>LIM?'<button class="more" id="more">Show '+Math.min(60,r.length-LIM)+' more ('+(r.length-LIM)+' left)</button>':"")||(C.length?'<p class="empty">No sections match. Clear a filter or try another search.</p>':"");
 }const s=S(),cr=s.reduce((n,x)=>n+x.cr,0);tt(s);
 $("#sel").innerHTML=s.map(x=>`<div class="r"><div><b>${x.code}</b> ${x.title}<small><span>CRN ${x.crn}</span><span>${x.s?x.days+" "+x.s+"–"+x.e:"Time to be announced"}${(x.ex||[]).map(q=>" + "+q.days+" "+q.s+"–"+q.e).join("")}</span><span class="lc2" style="margin:0">${PIN}${esc(x.cam+" · "+LC(x).full)}</span>${LOCS(x).slice(1).map(o=>`<span class="lc2" style="margin:0">${PIN}${esc(o.d+" · "+o.l.full)}</span>`).join("")}<span>${x.ins}</span><span>${x.cr} cr</span>${fu(x)?`<span class="fw">Attention: full, ${wo(x)?"waiting list open":"no waiting list"}</span>`:""}</small></div><button data-a="${x.crn}">Remove</button></div>`).join("")||'<p class="empty">No classes yet. Open Look up classes and add a section.</p>';
 $("#n").textContent=cr+" cr";$("#cr").textContent=cr;$("#bar").style.width=Math.min(100,cr/MAX*100)+"%";
@@ -352,6 +437,8 @@ $("#crn").textContent="CRNs: "+(sel.join(", ")||"none yet");
 act().c=sel;schUI();const o=JSON.stringify({plans,cur});
 try{localStorage.setItem("lau-plans",JSON.stringify({plans,cur,t:lt}));if(HIST[HIST.length-1]!==o){HIST.push(o);if(HIST.length>15)HIST.shift();localStorage.setItem("lau-hist",JSON.stringify(HIST))}}catch(e){}
 if(PD&&last!==null&&o!==last){last=o;flush()}}
+$("#list").addEventListener("click",e=>{const m=e.target.closest(".mr");if(!m)return;const a=m.closest("article.c"),x=a.classList.toggle("ex");m.textContent=x?"Fewer details":"More details"});
+$("#list").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("mr")){e.preventDefault();e.target.click()}});
 function patchList(){const m=new Map(C.map(c=>[c.crn,c]));document.querySelectorAll("#list article.c").forEach(a=>{const bt=a.querySelector("button.a");if(!bt)return;const c=m.get(bt.dataset.a);if(!c)return;
 const on=sel.includes(c.crn),w=on?"":why(c),l=c.cap?Math.max(0,c.cap-c.enr):99;
 a.classList.toggle("on",on);a.classList.toggle("f",!l);
@@ -372,9 +459,9 @@ if(b.dataset.ns)$("#ns").click();
 if(b.dataset.a){const ac=b.closest("#list article.c"),y0=ac?ac.getBoundingClientRect().top:0,sc=ac?SCR(ac):null;if(C.length)sel=sel.filter(x=>C.some(c=>c.crn===x));const c=C.find(x=>x.crn===b.dataset.a);if(!c)return;
 touch();if(sel.includes(c.crn))sel=sel.filter(x=>x!==c.crn);
 else{const w=why(c);if(w)return toast(w);sel.push(c.crn);toast(c.code+" added to your schedule"+(fu(c)?". Attention: this section is full"+(wo(c)?", waiting list open.":" and has no waiting list."):""))}
-if($("#nc").checked)draw();else{patchList();draw(1)}if(ac){const nb=document.querySelector('#list button.a[data-a="'+c.crn+'"]'),na=nb&&nb.closest("article.c");if(na){const dy=na.getBoundingClientRect().top-y0;if(Math.abs(dy)>.5){if(sc===window)scrollBy(0,dy);else sc.scrollTop+=dy}}}}});
+if($("#nc").checked)draw();else{patchList();draw(1)}if(ac){const nb=document.querySelector('#list button.a[data-a="'+c.crn+'"]'),na=nb&&nb.closest("article.c");if(na){const dy=(na.getBoundingClientRect().top-y0)/(window.ZF||1);if(Math.abs(dy)>.5){if(sc===window)scrollBy(0,dy);else sc.scrollTop+=dy}}}}});
 ["#q","#ins","#t1","#t2","#nc","#day","#dep","#cam","#open","#wlo"].forEach(i=>$(i).addEventListener("input",()=>{LIM=60;draw()}));
-{const cf=$("#cf"),cf0=cf.textContent;let cft;const cfr=()=>{clearTimeout(cft);cf.classList.remove("arm");cf.textContent=cf0};cf.onclick=()=>{if(!cf.classList.contains("arm")){cf.classList.add("arm");cf.textContent="Tap again to clear";cft=setTimeout(cfr,3500);return}cfr();LIM=60;INS.clear();["#q","#ins","#t1","#t2","#day","#dep","#cam"].forEach(i=>$(i).value="");["#open","#wlo","#nc"].forEach(i=>$(i).checked=false);draw()}};
+$("#fd").open=true;window.__relayout=()=>draw(1);{const cf=$("#cf"),cf0=cf.textContent;let cft;const cfr=()=>{clearTimeout(cft);cf.classList.remove("arm");cf.textContent=cf0};cf.onclick=()=>{if(!cf.classList.contains("arm")){cf.classList.add("arm");cf.textContent="Tap again to clear";cft=setTimeout(cfr,3500);return}cfr();LIM=60;INS.clear();["#q","#ins","#t1","#t2","#day","#dep","#cam"].forEach(i=>$(i).value="");["#open","#wlo","#nc"].forEach(i=>$(i).checked=false);draw()}};
 $("#trm").onchange=()=>{auto=false;picked=true;go($("#trm").value)};
 $("#clr").onclick=()=>{touch();sel=[];draw()};
 $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(sel.join(", "));toast("CRNs copied")}catch(e){toast("Copy blocked. CRNs: "+sel.join(", "))}};
