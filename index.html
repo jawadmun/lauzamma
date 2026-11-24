@@ -522,5 +522,6 @@ PD.onSnapshot(s=>{if(s.metadata.hasPendingWrites)return;const x=s.exists?s.data(
 if(x&&x.plans){const rt=+x.t||0,first=last===null;if(rt>lt||(first&&rt===lt&&lt===0)){plans=JSON.parse(JSON.stringify(x.plans));if(x.cur){cur=x.cur;auto=false}lt=rt;fixCur();last=JSON.stringify({plans,cur});go(cur)}else if(first){last=JSON.stringify({plans:x.plans,cur:x.cur||cur});draw()}}else{if(last===null)last="";draw()}},()=>{})}
 }catch(e){}})();
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0b4493bdf1f94c379696231d6dfd1ee8"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
